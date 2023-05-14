@@ -1,0 +1,83 @@
+import java.util.Scanner;
+
+public class BussbiljettMohammedAlam {
+
+    private static final int NUM_SEATS = 21;
+    private static final double PRICE_PER_SEAT = 299.90;
+    private static int[] seats;
+
+    public static void main(String[] args) {
+        seats = new int[NUM_SEATS];
+        for (int i = 0; i < NUM_SEATS; i++) {
+            seats[i] = 0;
+        }
+
+        int choice = 0;
+        while (choice != 4) {
+            System.out.println("Välkommen till bokningssystemet!");
+            System.out.println("1. Lägg till en passagerare");
+            System.out.println("2. Skriv ut antalet lediga platser");
+            System.out.println("3. Beräkna vinsten av antalet sålda biljetter");
+            System.out.println("4. Avsluta programmet");
+            System.out.print("Välj ett alternativ: ");
+
+            Scanner scan = new Scanner(System.in);
+            choice = scan.nextInt();
+
+            switch (choice) {
+                case 1:
+                    bokaplats();
+                    break;
+                case 2:
+                    platserkvar();
+                    break;
+                case 3:
+                    beraknaInkomst();
+                    break;
+                case 4:
+                    System.out.println("Tack för att du använde bokningssystemet!");
+                    break;
+                default:
+                    System.out.println("Ogiltigt val. Försök igen.");
+                    break;
+            }
+        }
+    }
+
+    static void bokaplats() {
+        int ledigasittplatser = 0;
+        for (int i = 0; i < NUM_SEATS; i++) {
+            if (seats[i] == 0) {
+                seats[i] = 1;
+                System.out.println("Plats " + (i + 1) + " har bokats.");
+                break;
+            }
+            ledigasittplatser++;
+        }
+        if (ledigasittplatser == NUM_SEATS) {
+            System.out.println("Tyvärr finns det inga lediga platser kvar.");
+        }
+    }
+
+    static void platserkvar() {
+        int ledigasittplatser = NUM_SEATS;
+        for (int i = 0; i < NUM_SEATS; i++) {
+            if (seats[i] == 1) {
+                ledigasittplatser--;
+            }
+        }
+        System.out.println("Antal lediga platser: " + ledigasittplatser);
+    }
+
+    static void beraknaInkomst() {
+        int bokadeplatser = 0;
+        for (int i = 0; i < NUM_SEATS; i++) {
+            if (seats[i] == 1) {
+                bokadeplatser++;
+            }
+        }
+        double totalinkomst = bokadeplatser * PRICE_PER_SEAT;
+        System.out.println("Antal sålda biljetter: " + totalinkomst);
+    }
+}
+    
